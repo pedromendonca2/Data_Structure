@@ -53,20 +53,20 @@ double avalia (double* poli, int grau, double x){
     return result;
 }
 
-int main(){
+// int main(){
 
-    float raio = 2;
-    float *area = malloc(sizeof(float));
-    float *volume = malloc (sizeof(float));
+//     float raio = 2;
+//     float *area = malloc(sizeof(float));
+//     float *volume = malloc (sizeof(float));
 
-    calc_esfera(raio, area, volume);
-    printf("Area: %.2f e volume: %.2f\n", *area, *volume);
+//     calc_esfera(raio, area, volume);
+//     printf("Area: %.2f e volume: %.2f\n", *area, *volume);
 
-    free(area);
-    free(volume);
+//     free(area);
+//     free(volume);
 
-    return 0;
-}
+//     return 0;
+// }
 
 // int main(){
 
@@ -99,24 +99,24 @@ int main(){
 //     return 0;
 // }
 
-// int main(){
+int main(){
 
-//     float n=4;
-//     int *vet = malloc(4*sizeof(float));
+    float n=4;
+    int *vet = malloc(4*sizeof(float));
     
-//     vet[0] = 2;
-//     vet[1] = 4;
-//     vet[2] = 6;
-//     vet[3] = 8;
+    vet[0] = 2;
+    vet[1] = 4;
+    vet[2] = 6;
+    vet[3] = 8;
 
-//     inverte(n, vet);
+    inverte(n, vet);
 
-//     printf("vetores trocados: %d %d %d %d\n", vet[0], vet[1], vet[2], vet[3]);
+    printf("vetores trocados: %d %d %d %d\n", vet[0], vet[1], vet[2], vet[3]);
 
-//     free(vet);
+    free(vet);
 
-//     return 0;
-// }
+    return 0;
+}
 
 // int main(){
 
