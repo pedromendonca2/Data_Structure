@@ -15,6 +15,7 @@ typedef struct{
 typedef struct{
     int valor;
     tItem* itens;
+    int qtd_itens;
 } tEstoque;
 
 typedef struct{
@@ -53,7 +54,7 @@ tItem cadastrarItem(tProduto* produtos, int num_produtos){
     char nome[100];
 
     printf("Digite quantidade e produto:\n");
-    scanf("%d", item.qtd);
+    scanf("%d", &item.qtd);
 
     scanf(" %[^\n]%*c", nome);
     for(int i=0; i<num_produtos; i++){
@@ -69,15 +70,17 @@ tEstoque cadastrarEstoque(tProduto* produtos, int num_produtos){
     tEstoque estoque;
     int qtd_items;
 
-    scanf("%d", qtd_items);
+    printf("Digite a quantidade de itens:\n");
+    scanf("%d", &estoque.qtd_itens);
 
-    estoque.itens = malloc(qtd_items*sizeof(tItem));
+    estoque.itens = malloc(estoque.qtd_itens*sizeof(tItem));
 
-    for(int i=0; i<qtd_items; i++){
+    for(int i=0; i<estoque.qtd_itens; i++){
         estoque.itens[i] = cadastrarItem(produtos, num_produtos);
     }
 
-    for(int i=0; i<qtd_items; i++){
+    estoque.valor = 0;
+    for(int i=0; i<estoque.qtd_itens; i++){
         estoque.valor += calculaQtd(estoque.itens[i])*calculaValor(estoque.itens[i]);
     }
     
@@ -86,9 +89,9 @@ tEstoque cadastrarEstoque(tProduto* produtos, int num_produtos){
 
 tFilial cadastrarFilial(tProduto* produtos, int num_produtos){
     tFilial filial;
-
     char nome[100];
 
+    printf("Digite o nome da filial:\n");
     scanf(" %[^\n]%*c", nome);
     filial.nome = malloc(strlen(nome)+1);
     strcpy(filial.nome, nome);
@@ -113,6 +116,26 @@ tProduto* cadastrarProdutos(int num_produtos){
     return produtos;
 }
 
+void desalocaEstoque(tEstoque estoque){
+    // for(int i=0; i<estoque.qtd_itens; i++){
+    //     desalocaItem(estoque.itens[i]);
+    // }
+    free(estoque.itens);
+}
+
+void desalocaFilial(tFilial filial){
+    free(filial.nome);
+    desalocaEstoque(filial.estoque);
+}
+
+void desalocaSupermercado(tSupermercado supermercado, int num_filiais){
+    free(supermercado.nome);
+    for(int i=0; i<num_filiais; i++){
+        desalocaFilial(supermercado.filiais[i]);
+    }
+    free(supermercado.filiais);
+}
+
 void desalocaProdutos(tProduto* produtos, int num_produtos){
     for(int i=0; i<num_produtos; i++){
         free(produtos[i].nome);    
@@ -121,8 +144,8 @@ void desalocaProdutos(tProduto* produtos, int num_produtos){
 }
 
 int main(){
-
     int num_produtos, num_filiais;
+    char nome[100];
 
     printf("Digite o num de produtos:\n");
     scanf("%d", &num_produtos);
@@ -130,19 +153,35 @@ int main(){
     tProduto* produtos = cadastrarProdutos(num_produtos);
 
     tSupermercado supermercado;
-    scanf(" %[^\n]%*c", supermercado.nome);
 
-    scanf("%d", num_filiais);
+    printf("Digite o nome do supermercado:\n");
+    scanf(" %[^\n]%*c", nome);
+    supermercado.nome = malloc(strlen(nome)+1);
+    strcpy(supermercado.nome, nome);
+    //printf("O nome do mercado foi registrado\n");
+
+    printf("Digite o numero de filiais:\n");
+    scanf("%d", &num_filiais);
     supermercado.filiais = malloc(num_filiais*sizeof(tFilial));
     for(int i=0; i<num_filiais; i++){
         supermercado.filiais[i] = cadastrarFilial(produtos, num_produtos);
     }
 
+    supermercado.valor_total = 0;
     for(int i=0; i<num_filiais; i++){
         supermercado.valor_total += calculaEstoque(supermercado.filiais[i]);
     }
 
+    printf("Nome: %s, Estoque Total: %d\n", supermercado.nome, supermercado.valor_total);
+    for(int i=0; i<num_filiais; i++){
+        printf("Filial: %s\nEstoque: %d\n  ", supermercado.filiais[i].nome, calculaEstoque(supermercado.filiais[i]));
+        for(int j=0; j<supermercado.filiais[i].estoque.qtd_itens; j++){
+            printf("Item: %s, valor unitario: %d, quantidade: %d\n  ", supermercado.filiais[i].estoque.itens[j].tipo.nome, supermercado.filiais[i].estoque.itens[j].tipo.valor, supermercado.filiais[i].estoque.itens[j].qtd);
+        }
+    }
+
     desalocaProdutos(produtos, num_produtos);
+    desalocaSupermercado(supermercado, num_filiais);
 
     return 0;
 }
