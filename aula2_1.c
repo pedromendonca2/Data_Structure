@@ -158,7 +158,6 @@ int main(){
     scanf(" %[^\n]%*c", nome);
     supermercado.nome = malloc(strlen(nome)+1);
     strcpy(supermercado.nome, nome);
-    //printf("O nome do mercado foi registrado\n");
 
     printf("Digite o numero de filiais:\n");
     scanf("%d", &num_filiais);
