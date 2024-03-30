@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include "matriz.h"
 
 struct matriz{
@@ -49,7 +48,9 @@ void modificaElemento (Matriz* mat, int linha, int coluna, int elem){
  * pos-condicao: mat n„o È modificada
  */
 int recuperaElemento(Matriz* mat, int linha, int coluna){
-    if(mat == NULL) exit(1);
+    if(mat == NULL){
+        exit(1);
+    }
 
     return mat->mat[linha][coluna]; 
 }
@@ -87,11 +88,11 @@ int recuperaNLinhas (Matriz* mat){
 Matriz* transposta (Matriz* mat){
     if(mat == NULL) exit(1);
 
-    Matriz* mat_trans = inicializaMatriz(mat->linhas, mat->colunas);
+    Matriz* mat_trans = inicializaMatriz(mat->colunas, mat->linhas);
 
     for(int i=0; i<mat->colunas; i++){
         for(int j=0; j<mat->linhas; j++){
-            mat_trans->mat[i][j] = recuperaElemento(mat, mat->linhas, mat->colunas);
+            mat_trans->mat[i][j] = recuperaElemento(mat, j, i);
         }
     }
 
@@ -106,27 +107,21 @@ Matriz* transposta (Matriz* mat){
  * pos-condicao: mat1 e mat2 n„o s„o modificadas e a matriz multiplicacao existe
  */
 Matriz* multiplicacao (Matriz* mat1, Matriz* mat2){
-    if(mat1 == NULL || mat2 == NULL) exit(1);
+    if(mat1 == NULL || mat2 == NULL || mat1->colunas != mat2->linhas) exit(1);
 
-    Matriz* mat_mult = inicializaMatriz(mat1->colunas, mat2->linhas);
+    Matriz* mat_mult = inicializaMatriz(mat1->linhas, mat2->colunas);
 
     for(int i=0; i<mat1->linhas; i++){
-        for(int j=0; j<mat1->colunas; j++){
-            for(int I=0; I<mat2->colunas; I++){
-                for(int J=0; J<mat2->linhas; J++){
-                    for(int a=0; a<mat_mult->linhas; a++){
-                        for(int b=0; b<mat_mult->colunas; b++){
-                            if(a==0 && b==0){
-                                mat_mult->mat[a][b] = 0;
-                            } 
-                            mat_mult->mat[a][b] += mat1->mat[i][j] * mat2->mat[I][J];
-                        }
-                    }
-                }
+        for(int j=0; j<mat2->colunas; j++){
+            int aux=0;
+            for(int k=0; k<mat1->colunas; k++){ //ou mat2->linhas
+                aux += recuperaElemento(mat1, i, k)*recuperaElemento(mat2, k, j);
             }
+            modificaElemento(mat_mult, i, j, aux);
         }
     }
 
+    return mat_mult;
 }
 
 /*Imprime a matriz
@@ -140,21 +135,19 @@ void imprimeMatriz(Matriz* mat){
 
     for(int i=0; i<mat->linhas; i++){
         for(int j=0; j<mat->colunas; j++){
-            printf("%d", recuperaElemento(mat, i, j));
+            printf("%d ", recuperaElemento(mat, i, j));
         }
         printf("\n");
     }
-}
 
-// void imprimeLinhas (Matriz* mat, int indice){
-    
-// }
+    printf("\n");
+}
 
 void destroiMatriz(Matriz* mat){
     for(int i=0; i<mat->linhas; i++){
-        for(int j=0; j<mat->colunas; j++){
-            free(mat->mat[i][j]);
-        }
+        //for(int j=0; j<mat->colunas; j++){
+            free(mat->mat[i]);
+        //}
     }
     free(mat->mat);
     free(mat);

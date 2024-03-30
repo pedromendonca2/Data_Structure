@@ -9,6 +9,7 @@
 #ifndef matriz_h
 #define matriz_h
 
+#include <stdlib.h>
 #include <stdio.h>
 
 //Tipo matriz (tipo opaco)
