@@ -1,19 +1,22 @@
 #include "lista.h"
 
-typedef struct{
+struct celula{
     tProduto* produto;
     tCelula* prox;
-} tCelula;
+};
 
-typedef struct{
+struct lista{
     tCelula* primeiro;
     tCelula* ultimo;
-} tTipoLista;
+};
 
-void liberaCelula(tCelula* cel){
+tCelula* liberaCelula(tCelula* cel){
+
+    tCelula* prox = cel->prox;
     liberaProduto(cel->produto);
-    free(cel->prox);
     free(cel);
+
+    return prox;
 }
 
 tTipoLista* inicializaLista(){
@@ -39,11 +42,11 @@ void insereCelulaNaLista(tProduto* produto, tTipoLista* lista){
     lista->ultimo->prox = NULL;
 }
 
-void retiraItem(tTipoLista* lista, int v){
+void retiraItem(tTipoLista* lista, int preco){
     tCelula* ant = NULL;
     tCelula* p = lista->primeiro;
 
-    while(p != NULL && retornaPreco(p->produto)){
+    while(p != NULL && retornaPreco(p->produto) != preco){
         ant = p;
         p = p->prox;
     }
@@ -77,4 +80,14 @@ void imprimeLista(tTipoLista* lista){
         printf("Nome: %s, preco: %d e codigo: %d\n", retornaNome(aux->produto), retornaPreco(aux->produto), retornaCodigo(aux->produto));
         aux = aux->prox;
     }
+}
+
+void liberaLista(tTipoLista* lista){
+    tCelula *cel = lista->primeiro;
+
+    while(cel != NULL){
+        cel = liberaCelula(cel);
+    }
+
+    free(lista);
 }

@@ -6,15 +6,9 @@ struct produto{
     int preco;
 };
 
-tProduto* inicializaProduto(){
+tProduto* criaProduto(){
+
     tProduto* p = calloc(1, sizeof(tProduto));
-
-    p->nome=NULL;
-
-    return p;
-}
-
-tProduto* incrementaProduto(tProduto* p){
 
     char nome[100];
     printf("Digite nome do produto\n");

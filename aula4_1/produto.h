@@ -7,9 +7,7 @@
 
 typedef struct produto tProduto;
 
-tProduto* inicializaProduto();
-
-tProduto* incrementaProduto(tProduto* p);
+tProduto* criaProduto();
 
 char* retornaNome(tProduto* p);
 
