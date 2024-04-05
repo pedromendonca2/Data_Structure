@@ -55,21 +55,24 @@ void retiraItem(tTipoLista* lista, int preco){
 
     if(p == lista->primeiro && p == lista->ultimo){
         lista->primeiro = lista->ultimo = NULL;
-        free(p);
+        liberaCelula(p);
         return; 
     }
 
     if(p == lista->ultimo){
         lista->ultimo = ant; 
         ant->prox = NULL; 
-        free(p);
+        liberaCelula(p);
         return;
     }
 
-    if(p == lista->primeiro) lista->primeiro = p->prox;
-    else ant->prox = p->prox;
+    if(p == lista->primeiro){
+        lista->primeiro = p->prox;    
+    } else{
+        ant->prox = p->prox;
+    } 
 
-    free(p);
+    liberaCelula(p);
 }
 
 void imprimeLista(tTipoLista* lista){
