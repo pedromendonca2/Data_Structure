@@ -7,8 +7,7 @@ struct celula{
 };
 
 tTipoLista* inicializaLista(){
-    tTipoLista* lista = malloc(sizeof(tTipoLista));
-    lista == NULL;
+    tTipoLista* lista = NULL;
     return lista;
 }
 
@@ -29,13 +28,12 @@ tTipoLista* insereProduto(tTipoLista* lista, tProduto* produto){
 tCelula* busca(tTipoLista* lista, int preco){
     tCelula* p = lista;
 
-    for(p; preco!=retornaPreco(p->produto); p = p->prox){
+    for(p; p != NULL; p = p->prox){
         if(preco==retornaPreco(p->produto)){
             return p;
         }
     }
 
-    //free(p);
     return NULL;
 }
 
@@ -44,24 +42,33 @@ tTipoLista* retira(tTipoLista* lista, int preco){
 
     if(p == NULL) return lista;
 
-    if(p == lista){ // eh o primeiro
-        p = NULL;
-    } else if(p->prox == NULL){ // eh o ultimo
-        p->ant->prox = NULL;
-    } else{ // esta no meio
-        p->ant->prox = p->prox;
+    if(p->ant != NULL) p->ant->prox = p->prox; //n eh o 1o
+
+    if(p->prox != NULL){ //n eh o ultimo
         p->prox->ant = p->ant;
+        if(p->ant == NULL) lista = p->prox; //eh o 1o
     }
 
+    if(p->ant == NULL && p->prox == NULL) lista = NULL; //eh o unico
+
+    free(p);
     return lista;
 }
 
 void destroiLista(tTipoLista* lista){
     tCelula* p = lista;
 
-    for(p; p!=NULL; p = p->prox){
+    while(p!=NULL){
+        lista = lista->prox;
         free(p);
+        p = lista;
     }
+}
 
-    free(lista);
+void imprimeLista(tTipoLista* lista){
+    tCelula* p = lista;
+
+    for(p; p != NULL; p=p->prox){
+        printf("Nome: %s, preco: %d e codigo: %d\n", retornaNome(p->produto), retornaPreco(p->produto), retornaCodigo(p->produto));
+    }
 }
