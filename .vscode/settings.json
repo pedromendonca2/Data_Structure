@@ -1,6 +1,9 @@
 {
     "files.associations": {
         "cliente.h": "c",
-        "lista.h": "c"
+        "lista.h": "c",
+        "banhotosa.h": "c",
+        "string.h": "c",
+        "stdlib.h": "c"
     }
 }
