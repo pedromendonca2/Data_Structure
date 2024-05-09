@@ -4,6 +4,7 @@
         "lista.h": "c",
         "banhotosa.h": "c",
         "string.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "com_sentinela_simples.h": "c"
     }
 }
