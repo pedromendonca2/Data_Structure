@@ -4,10 +4,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct celula{
+typedef struct celula tCelula;
+
+struct celula{
     TProduto* produto;
     tCelula* prox;
-} tCelula;
+};
 
 struct pedido{
     char* nome_dono;
@@ -26,7 +28,7 @@ TPedido* InicPedido (char* dono){
 
     if(dono == NULL) exit(1);
 
-    TPedido* pedido = malloc(sizeof(pedido));
+    TPedido* pedido = malloc(sizeof(TPedido));
 
     pedido->nome_dono = strdup(dono);
     pedido->primeiro = NULL;
@@ -46,20 +48,21 @@ TPedido* InicPedido (char* dono){
 void IncluiProdutoPedido (TPedido* pedido, TProduto* prod){
     if(pedido == NULL || prod == NULL) exit(1);
 
-    tCelula* ant = NULL;
+    //tCelula* ant = NULL;
     tCelula* p = pedido->primeiro;
 
-    while(p != NULL || (p->produto != prod)){
-        ant = p;
+    while(p != NULL && strcmp(RetornaNome(p->produto), RetornaNome(prod)) != 0){
+        //ant = p;
         p = p->prox;
     }
 
-    if(p->produto == prod){
+    if(p != NULL){
         printf("Produto já existe no pedido\n");
         return;
     }
 
     tCelula* novo = malloc(sizeof(tCelula));
+    if(novo == NULL) exit(1);
 
     if(pedido->ultimo == NULL){
         pedido->primeiro = pedido->ultimo = novo;
@@ -85,17 +88,17 @@ void ImprimePedido (TPedido* pedido){
     if(pedido == NULL) return;
 
     printf("Dono: %s\n\n", pedido->nome_dono);
-    
-    tCelula* cel = pedido->primeiro;
 
-    if(cel == pedido->primeiro && cel == pedido->ultimo){
+    if(pedido->ultimo == NULL){
         printf("Nao ha produtos neste pedido!\n");
         return;
     }
 
+    tCelula* cel = pedido->primeiro;
+
     while(cel != NULL){
-        printf("Nome: %s\n", RetornaNome(cel->produto));
-        imprimeIngredientes(cel->produto);
+        //printf("Nome: %s\n", RetornaNome(cel->produto));
+        ImprimeIngredientes(cel->produto);
         printf("\n");
         cel = cel->prox;
     }
@@ -116,21 +119,23 @@ void RetiraProdutoPedido (TPedido* pedido, char* prod){
     tCelula* ant = NULL;
     tCelula* p = pedido->primeiro;
 
-    while(p != NULL || (p->produto != prod)){
+    while(p != NULL && strcmp(RetornaNome(p->produto), prod) != 0 ){
         ant = p;
         p = p->prox;
     }
 
-    if(p = NULL) return;
+    if(p == NULL) return;
 
     if(p == pedido->primeiro && p == pedido->ultimo){
         pedido->primeiro = pedido->ultimo = NULL;
+        free(p);
         return;
     }
 
     if(p == pedido->ultimo){
         pedido->ultimo = ant;
-        ant = NULL;
+        ant->prox = NULL;
+        free(p);
         return;
     }
 
@@ -139,11 +144,8 @@ void RetiraProdutoPedido (TPedido* pedido, char* prod){
     } else{
         ant->prox = p->prox;
     }
+    free(p);
 }
-
-//A função envia pedido verifica se há restrição calórica ou restrição alimentar
-//Se estiver tudo ok, retira o pedido da lista (libera o pedido, porém não libera o produto) e retorna 1
-//Se não estiver ok, a lista permanece a mesma e a função retorna zero
 
 /*----------------------------------------------------------------------
  * Primeiramente, verifica se há restrição calórica ou restrição alimentar, de acordo com os parametros
@@ -168,17 +170,31 @@ int EnviaPedido (TPedido* pedido, int restricao_calorica, char* restricao_alimen
     }
 
     if(soma_calorias > restricao_calorica){
-        printf("Pedido não Enviado! Pedido tem mais calorias do que a restricao, tente retirar algum produto!");
+        printf("Pedido não Enviado! Pedido tem mais calorias do que a restricao, tente retirar algum produto!\n");
         flag = 1;
     }
 
-    tCelula* cel = pedido->primeiro;
+    cel = pedido->primeiro;
 
     while(cel != NULL){
-        if(strcmp(restricao_alimentar, RetornaNome(cel->produto)) == 0){
+        if(VerificaIngrediente(cel->produto, restricao_alimentar) == 1){
             printf("Pedido não Enviado! Restricao alimentar no produto: %s\n", RetornaNome(cel->produto));
             flag = 1;
         }
         cel = cel->prox;
+    }
+
+    if(flag == 0){
+        free(pedido->nome_dono);
+        cel = pedido->primeiro;
+        while(cel != NULL){
+            tCelula* aux = cel->prox;
+            free(cel);
+            cel = aux;
+        }
+        free(pedido);
+        return 1;
+    } else{
+        return 0;
     }
 }
