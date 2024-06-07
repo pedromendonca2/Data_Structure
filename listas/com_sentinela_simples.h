@@ -1,16 +1,18 @@
 #ifndef lista_h
 #define lista_h
 
-#include "produto.h"
-
 typedef struct celula tCelula;
 typedef struct lista tTipoLista;
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 tCelula* liberaCelula(tCelula* cel);
 
 tTipoLista* inicializaLista();
 
-void insereCelulaNaLista(tProduto* produto, tTipoLista* lista);
+void insereCelulaNaLista(int produto, tTipoLista* lista);
 
 void retiraItem(tTipoLista* lista, int v);
 

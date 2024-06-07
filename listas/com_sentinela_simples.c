@@ -1,7 +1,7 @@
 #include "com_sentinela_simples.h"
 
 struct celula{
-    tProduto* produto;
+    int produto;
     tCelula* prox;
 };
 
@@ -27,7 +27,7 @@ tTipoLista* inicializaLista(){
     return lista;
 }
 
-void insereCelulaNaLista(tProduto* produto, tTipoLista* lista){
+void insereCelulaNaLista(int produto, tTipoLista* lista){
 
     tCelula* novo = malloc(sizeof(tCelula));
 

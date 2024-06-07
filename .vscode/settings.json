@@ -5,6 +5,9 @@
         "banhotosa.h": "c",
         "string.h": "c",
         "stdlib.h": "c",
-        "com_sentinela_simples.h": "c"
+        "com_sentinela_simples.h": "c",
+        "stdio.h": "c",
+        "pilha.h": "c",
+        "pilha_dupla.h": "c"
     }
 }

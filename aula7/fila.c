@@ -55,16 +55,14 @@ void fila_insere_final(tFila* f, Amostra* a){
 }
 
 Amostra* fila_retira (tFila* f){
-    tCelula* c;
-    Amostra* a;
-
     if(f == NULL){
         printf("Deu ruim\n");
         exit(1);
     } 
 
-    c = f->ini;
-    a = c->amostra;
+    tCelula* c = f->ini;
+    Amostra* a = c->amostra;
+
     f->ini = c->prox;
 
     if(f->ini == NULL) f->fim = NULL;

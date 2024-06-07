@@ -41,17 +41,16 @@ void insereAnimalNaLista(char* nome, int agressividade, int animal, tListaHet* l
 
     lista->ultimo->animal = animal;
     lista->ultimo->agressividade = agressividade;
-
     strcpy(lista->ultimo->nome, nome);
     lista->ultimo->prox = NULL;
 }
 
 int buscaItem(tListaHet* lista, char* nome){
-    tCelula* ant = NULL;
+    //tCelula* ant = NULL;
     tCelula* p = lista->primeiro;
 
     while(p != NULL && strcmp(p->nome, nome) != 0){
-        ant = p;
+        //ant = p;
         p = p->prox;
     }
 
@@ -133,8 +132,7 @@ void imprimeLista(tListaHet* lista){
         aux = aux->prox;
     }
 
-    //free(aux);
-} //POR QUE NAO LIBERA O AUX????????
+}
 
 void liberaLista(tListaHet* lista){
     tCelula* aux = lista->primeiro;

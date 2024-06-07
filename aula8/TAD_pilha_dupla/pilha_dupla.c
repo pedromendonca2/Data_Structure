@@ -1,4 +1,4 @@
-#include "pilha.h"
+#include "pilha_dupla.h"
 
 TipoPilhaDupla* inicPilhaDupla(){
     TipoPilhaDupla* p = (TipoPilhaDupla*) malloc (sizeof (TipoPilhaDupla));
@@ -59,6 +59,17 @@ TipoItem* DesempilhaPilha2 (TipoPilhaDupla* Pilhas){
     }
 }
 
+// void liberaPilhas(TipoPilhaDupla* Pilhas){
+//     while(1){
+//         TipoItem* item = DesempilhaPilha1(Pilhas);
+//         if(item == NULL) break;
+//     }
+//      while(1){
+//         TipoItem* item = DesempilhaPilha1(Pilhas);
+//         if(item == NULL) break;
+//     }
+// }
+
 TipoItem* inicItem (TipoItem elemento){
 
     TipoItem* item = malloc(sizeof(TipoItem));
@@ -68,17 +79,18 @@ TipoItem* inicItem (TipoItem elemento){
 }
 
 void imprimePilhas(TipoPilhaDupla* Pilhas){
-    printf("Pilha 1:\n\n");
 
-    for(int i=0; i<Pilhas->Pilha1.Topo; i++){
-        printf("%d, ", *(Pilhas->Item[i]));
+    printf("\nPilha 1:\n\n");
+
+    for(int i=Pilhas->Pilha1.Base; i<=Pilhas->Pilha1.Topo; i++){
+        printf("%d ", *(Pilhas->Item[i]));
     }
     printf("\n\n");
 
     printf("Pilha 2:\n\n");
 
-    for(int i=Pilhas->Pilha2.Topo; i>Pilhas->Pilha2.Base; i--){
-        printf("%d, ", *(Pilhas->Item[i]));
+    for(int i=(Pilhas->Pilha2.Base); i>=Pilhas->Pilha2.Topo; i--){
+        printf("%d ", *(Pilhas->Item[i]));
     }
     printf("\n\n");
 }

@@ -25,6 +25,8 @@ TipoItem* DesempilhaPilha1 (TipoPilhaDupla* Pilhas);
 
 TipoItem* DesempilhaPilha2 (TipoPilhaDupla* Pilhas);
 
+// void liberaPilhas(TipoPilhaDupla* Pilhas);
+
 TipoItem* inicItem (TipoItem elemento);
 
 void imprimePilhas(TipoPilhaDupla* Pilhas);
