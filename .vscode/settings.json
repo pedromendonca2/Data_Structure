@@ -8,6 +8,7 @@
         "com_sentinela_simples.h": "c",
         "stdio.h": "c",
         "pilha.h": "c",
-        "pilha_dupla.h": "c"
+        "pilha_dupla.h": "c",
+        "tree.h": "c"
     }
 }
