@@ -9,6 +9,7 @@
         "stdio.h": "c",
         "pilha.h": "c",
         "pilha_dupla.h": "c",
-        "tree.h": "c"
+        "tree.h": "c",
+        "time.h": "c"
     }
 }
