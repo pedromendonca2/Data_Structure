@@ -10,6 +10,8 @@
         "pilha.h": "c",
         "pilha_dupla.h": "c",
         "tree.h": "c",
-        "time.h": "c"
+        "time.h": "c",
+        "arvorebinariabusca.h": "c",
+        "random": "c"
     }
 }
