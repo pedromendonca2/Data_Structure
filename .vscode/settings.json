@@ -1,17 +1,8 @@
 {
     "files.associations": {
-        "cliente.h": "c",
-        "lista.h": "c",
-        "banhotosa.h": "c",
-        "string.h": "c",
-        "stdlib.h": "c",
-        "com_sentinela_simples.h": "c",
-        "stdio.h": "c",
-        "pilha.h": "c",
-        "pilha_dupla.h": "c",
-        "tree.h": "c",
-        "time.h": "c",
-        "arvorebinariabusca.h": "c",
-        "random": "c"
+        "arvoreVariavel.h": "c",
+        "arvoreVariavel.c": "c",
+        "main": "c",
+        "main.c": "c"
     }
 }

@@ -1,3 +1,6 @@
+#ifndef arvoreBinariaBusca_h
+#define arvoreBinariaBusca_h
+
 #include "aluno.h"
 
 typedef struct arv tArvore;
@@ -13,3 +16,5 @@ tArvore *abb_insere(tArvore *a, tAluno* aluno);
 tArvore *abb_retira(tArvore *r, tAluno* aluno);
 
 void liberaArvore(tArvore* r);
+
+#endif
