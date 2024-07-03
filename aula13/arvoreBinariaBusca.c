@@ -42,6 +42,7 @@ tArvore *abb_insere(tArvore *a, tAluno* aluno)
         a->a = aluno;
         a->esq = a->dir = NULL;
     }
+
     else if (retornaMatricula(aluno) < retornaMatricula(a->a))
         a->esq = abb_insere(a->esq, aluno);
     else
