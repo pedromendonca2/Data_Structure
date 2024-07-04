@@ -7,19 +7,16 @@
 
 typedef struct arvore tArvore;
 
-typedef int (*imprime) (void* dado);
-
-typedef void* (*retorna) (void* dado);
-
-typedef int (*compara) (void* dado1, void* dado2);
-
-typedef void (*libera) (void* dado);
+typedef void (*imprime) (void*);
+//typedef void* (*retorna) (void*);
+typedef int (*compara) (void*, void*);
+typedef void (*libera) (void*);
 
 tArvore* abb_cria(void);
 
 void abb_imprime(tArvore* a, imprime print);
 
-tArvore *abb_busca(tArvore *r, void* dado, retorna returnData, compara compare);
+tArvore *abb_busca(tArvore *r, void* dado, compara compare);
 
 tArvore *abb_insere(tArvore *a, void* dado, compara compare);
 

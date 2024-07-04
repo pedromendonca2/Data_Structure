@@ -6,6 +6,11 @@ struct arvore{
     tArvore* dir;
 };
 
+// typedef void (*imprime) (void*);
+// //typedef void* (*retorna) (void*);
+// typedef int (*compara) (void*, void*);
+// typedef void (*libera) (void*);
+
 tArvore* abb_cria(void)
 {
     return NULL;
@@ -21,14 +26,14 @@ void abb_imprime(tArvore* a, imprime print)
     }
 }
 
-tArvore *abb_busca(tArvore *r, void* dado, retorna returnData, compara compare) //dado pode ser nome ou matricula
+tArvore *abb_busca(tArvore *r, void* dado, compara compare) //dado pode ser nome ou matricula
 {
     if (r == NULL)
         return NULL;
-    else if (compare(returnData(r->dado), dado) == 1) //returnData(r->dado) > v
-        return abb_busca(r->esq, dado, returnData, compare);
-    else if (compare(returnData(r->dado), dado) == -1)
-        return abb_busca(r->dir, dado, returnData, compare);
+    else if (compare(r->dado, dado) > 0) //returnData(r->dado) > v
+        return abb_busca(r->esq, dado, compare);
+    else if (compare(r->dado, dado) < 0)
+        return abb_busca(r->dir, dado, compare);
     else
         return r;
 }
@@ -42,7 +47,7 @@ tArvore *abb_insere(tArvore *a, void* dado, compara compare)
         a->esq = a->dir = NULL;
     }
 
-    else if (compare(dado, a->dado))
+    else if (compare(dado, a->dado) < 0)
         a->esq = abb_insere(a->esq, dado, compare);
     else
         a->dir = abb_insere(a->dir, dado, compare);
@@ -54,11 +59,10 @@ tArvore *abb_retira(tArvore *r, void* dado, compara compare)
 {
     if (r == NULL)
         return NULL;
-    else if (compare(r->dado, dado) == 1)
+    else if (compare(r->dado, dado) > 0)
         r->esq = abb_retira(r->esq, dado, compare);
-    else if (compare(r->dado, dado) == -1)
+    else if (compare(r->dado, dado) < 0)
         r->dir = abb_retira(r->dir, dado, compare);
-
     else
     { /* achou o nó a remover */
         /* nó sem filhos */
@@ -102,8 +106,7 @@ void liberaArvore(tArvore* r, libera freeData)
     if(r!=NULL){
         liberaArvore(r->esq, freeData);
         liberaArvore(r->dir, freeData);
-
-        lfreeData(r->dado);
+        freeData(r->dado);
         free(r);
     }
 }
