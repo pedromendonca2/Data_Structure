@@ -29,5 +29,5 @@ tArvore* insereArvoreAluno(tArvore* arv, void* dado){
 }
 
 tArvore* retiraArvoreAluno(tArvore* arv, void* dado){
-    return abb_retira(arv, dado, comparaCallBack);
+    return abb_retira(arv, dado, comparaCallBack, liberaCallBack);
 }

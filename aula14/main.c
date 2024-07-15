@@ -23,5 +23,9 @@ int main(){
 
     liberaArvoreAluno(a);
 
+    // liberaAluno(aluno_1);
+    // liberaAluno(aluno_2);
+    // liberaAluno(aluno_3);
+
     return 0;
 }

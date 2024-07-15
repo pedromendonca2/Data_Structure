@@ -1,50 +1,83 @@
 #include "palavra.h"
 
-struct palavra {
-    char pal[NPAL];
+struct palavra { //celula da lista encadeada
+    char* pal;
     int n;
-    struct palavra* prox;
+    tPalavra* prox;
 };
 
 tPalavra* inicPalavra(char* p){
     tPalavra* pal = malloc(sizeof(tPalavra));
 
-    strdup(pal->pal, p);
+    pal->pal = strdup(p);
     pal->n = 0;
     pal->prox = NULL;
 
-    return p;
+    return pal;
 }
 
-tPalavra* retornaProximo(tPalavra *pal){
-    return pal->prox;
+char* retornaString(tPalavra* pal, int posicao){
+    return pal->pal;
 }
 
-int retornaFrequencia(tPalavra* pal){
-    return pal->n;
-}
-
-char retornaCaracter(tPalavra* pal, int posicao){
-    return pal->pal[posicao];
-}
-
-static int compara (char* pal_1, char* pal_2){
-    return strcmp(pal_1,pal_2);
-}
-
-void incrementaPalavra(tPalavra* pal){
+void atualizaOcorrencias(tPalavra* pal){
     pal->n++;
 }
 
-void liberaPalavra (tPalavra* pal){
-    if(pal != NULL){
+int retornaOcorrencias(tPalavra* pal){
+    return pal->n;
+}
 
-        free(pal->pal);
-        
-        for(tPalavra* p; p!=NULL; p=p->prox){
-            liberaPalavra(p);
+int compara (char* pal_1, char* pal_2){
+    return strcmp(pal_1, pal_2);
+}
+
+tPalavra* buscaPalavra(tPalavra* pal, char* string){
+    tPalavra* p;
+
+    for(p = pal; p!=NULL; p=p->prox){
+        if(strcmp(pal->pal, string) == 0){
+            return p;
         }
+    }
 
-        free(pal);
+    return NULL;
+}
+
+tPalavra* inserePalavraLista(tPalavra* lista, tPalavra* pal){
+    pal->prox = lista;
+
+    return pal;
+}
+
+int contaPalavrasLista(tPalavra* pal){
+    tPalavra* p;
+
+    int i=0;
+
+    for(pal = p; pal!=NULL; pal = pal->prox){
+        i++;
+    }
+
+    return i;
+}
+
+void imprimeLista(tPalavra* pal){
+    tPalavra* aux;
+
+    for(aux=pal; aux!=NULL; aux=aux->prox){
+        printf("String: %s - Ocorrencia: %d\n", aux->pal, aux->n);
+    }
+}
+
+void liberaListaPalavras(tPalavra* pal){
+    tPalavra* aux = pal;
+    tPalavra* t;
+
+    while(aux != NULL){
+        t = aux->prox;
+        free(aux->pal);
+        free(aux);
+        aux = t;
     }
 }

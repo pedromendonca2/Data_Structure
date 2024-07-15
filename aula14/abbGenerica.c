@@ -55,19 +55,20 @@ tArvore *abb_insere(tArvore *a, void* dado, compara compare)
     return a;
 }
 
-tArvore *abb_retira(tArvore *r, void* dado, compara compare)
+tArvore *abb_retira(tArvore *r, void* dado, compara compare, libera freeData)
 {
     if (r == NULL)
         return NULL;
     else if (compare(r->dado, dado) > 0)
-        r->esq = abb_retira(r->esq, dado, compare);
+        r->esq = abb_retira(r->esq, dado, compare, freeData);
     else if (compare(r->dado, dado) < 0)
-        r->dir = abb_retira(r->dir, dado, compare);
+        r->dir = abb_retira(r->dir, dado, compare, freeData);
     else
     { /* achou o nó a remover */
         /* nó sem filhos */
         if (r->esq == NULL && r->dir == NULL)
         {
+            freeData(r->dado);
             free(r);
             r = NULL;
         }
@@ -76,6 +77,7 @@ tArvore *abb_retira(tArvore *r, void* dado, compara compare)
         {
             tArvore *t = r;
             r = r->dir;
+            freeData(t->dado);
             free(t);
         }
         /* só tem filho à esquerda */
@@ -83,6 +85,7 @@ tArvore *abb_retira(tArvore *r, void* dado, compara compare)
         {
             tArvore *t = r;
             r = r->esq;
+            freeData(t->dado);
             free(t);
         }
         /* nó tem os dois filhos */
@@ -95,7 +98,7 @@ tArvore *abb_retira(tArvore *r, void* dado, compara compare)
             } 
             r->dado = f->dado; /* troca as informações */
             f->dado = dado;
-            r->esq = abb_retira(r->esq, dado, compare);
+            r->esq = abb_retira(r->esq, dado, compare, freeData);
         }
     }
     return r;

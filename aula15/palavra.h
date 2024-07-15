@@ -11,16 +11,20 @@ typedef struct palavra tPalavra;
 
 tPalavra* inicPalavra(char* pal);
 
-tPalavra* retornaProximo(tPalavra *pal);
+char* retornaString(tPalavra* pal, int posicao);
 
-int retornaFrequencia(tPalavra* pal);
+void atualizaOcorrencias(tPalavra* pal);
 
-char retornaCaracter(tPalavra* pal, int posicao);
+int retornaOcorrencias(tPalavra* pal);
 
-static int compara (const void* v1, const void* v2);
+tPalavra* buscaPalavra(tPalavra* pal, char* string);
 
-void incrementaPalavra(tPalavra* pal);
+tPalavra* inserePalavraLista(tPalavra* lista, tPalavra* pal);
 
-void liberaPalavra (tPalavra* pal);
+int contaPalavrasLista(tPalavra* pal);
+
+void imprimeLista(tPalavra* pal);
+
+void liberaListaPalavras(tPalavra* pal);
 
 #endif

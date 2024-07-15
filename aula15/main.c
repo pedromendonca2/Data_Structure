@@ -10,12 +10,18 @@ int main(){
     }
 
     char n[NPAL];
+    Hash* tab;
+    tab = inicializa(NTAB);
 
-    while(fscanf(file_pointer, "%[^ ]", &n) == 1){
-        // for(int i=0; i<MAX_CHAR; i++){
-        //     if(i == n) V[i]++;
-        // }
+    while(fscanf(file_pointer, "%s", n) == 1){
+        tPalavra* p = acessaHash(tab, n);
+        atualizaOcorrencias(p);
     }
+
+    imprimeHash(tab);
+    liberaHash(tab);
+
+    fclose(file_pointer);
 
     return 0;
 }

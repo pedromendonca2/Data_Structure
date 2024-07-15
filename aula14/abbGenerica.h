@@ -20,7 +20,7 @@ tArvore *abb_busca(tArvore *r, void* dado, compara compare);
 
 tArvore *abb_insere(tArvore *a, void* dado, compara compare);
 
-tArvore *abb_retira(tArvore *r, void* dado, compara compare);
+tArvore *abb_retira(tArvore *r, void* dado, compara compare, libera freeData);
 
 void liberaArvore(tArvore* r, libera freeData);
 

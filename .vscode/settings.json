@@ -6,6 +6,7 @@
         "main.c": "c",
         "arvorebinariabusca.h": "c",
         "string.h": "c",
-        "arvalunogen.h": "c"
+        "arvalunogen.h": "c",
+        "palavra.h": "c"
     }
 }
