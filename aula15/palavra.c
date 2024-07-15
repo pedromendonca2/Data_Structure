@@ -55,7 +55,7 @@ int contaPalavrasLista(tPalavra* pal){
 
     int i=0;
 
-    for(pal = p; pal!=NULL; pal = pal->prox){
+    for(p = pal; p!=NULL; p = p->prox){
         i++;
     }
 

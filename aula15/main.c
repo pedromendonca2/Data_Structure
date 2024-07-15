@@ -18,6 +18,8 @@ int main(){
         atualizaOcorrencias(p);
     }
 
+    printf("Conta palavras: %d\n\n", contaPalavras(tab));
+
     imprimeHash(tab);
     liberaHash(tab);
 

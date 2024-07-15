@@ -19,10 +19,11 @@ Hash* inicializa(int tam){
     h->tam = tam;
     h->vet = malloc(tam*sizeof(tPalavra*));
 
-    for(int i=0; i<tam; i++) h->vet[i] = NULL;
+    for(int i=0; i<tam; i++){
+        h->vet[i] = NULL;
+    }
 
     return h;
-    
 }
 
 tPalavra* acessaHash(Hash* h, char* s){
