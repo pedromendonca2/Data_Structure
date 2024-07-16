@@ -25,7 +25,11 @@ tRoteador* busca(tRoteador* rot, int destination);
 
 tRoteador* acessaTab(tHash* tab, tRoteador* rot);
 
+void imprimeLista(tRoteador* rot);
+
 void imprimeTab(tHash* tab);
+
+void liberaRoteador(tRoteador* rot);
 
 void liberaTab(tHash* tab);
 

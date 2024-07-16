@@ -35,7 +35,7 @@ tHash* inicTab(int tam){
 tRoteador* busca(tRoteador* rot, int destination){
     tRoteador* r;
 
-    for(r = rot; r==NULL; r = r->prox){
+    for(r = rot; r!=NULL; r = r->prox){
         if(r->destination == destination){
             r->n++;
             return r;
@@ -52,30 +52,46 @@ tRoteador* acessaTab(tHash* tab, tRoteador* rot){
     if(r) return r;
 
     tab->vet[nextHop] = rot;
+    tab->vet[nextHop]->n++;
 
     return rot;
 }
 
+void imprimeLista(tRoteador* rot){
+    tRoteador* r;
+
+    for(r = rot; r!=NULL; r=r->prox){
+        printf("destination = %d ", r->destination);
+        printf("e frequencia = %d\n", r->n);
+    }
+}
+
 void imprimeTab(tHash* tab){
     for(int i=0; i<tab->tam; i++){
-        printf("Posicao vet[%d]: destination = %d e frequencia = %d\n", i, tab->vet[i]->destination, tab->vet[i]->n);
+        printf("Posicao vet[%d]: ", i);
+        if(tab->vet[i] == NULL){
+            printf("NULL\n");
+        } else{
+            imprimeLista(tab->vet[i]);
+        }
+    }
+}
+
+void liberaRoteador(tRoteador* rot){
+    tRoteador* aux = rot;
+    tRoteador* t;
+
+    while(aux != NULL){
+        t = aux->prox;
+        free(aux);
+        aux = t;
     }
 }
 
 void liberaTab(tHash* tab){
-    if(tab != NULL){
-
-        for(int i=0; i<tab->tam; i++){
-
-            tRoteador* aux;
-            while(aux != NULL){
-                aux = tab->vet[i]->prox;
-                free(tab->vet[i]);
-                tab->vet[i] = aux;
-            }
-        }
-
-        free(tab->vet);
-        free(tab);
+    for(int i=0; i<tab->tam; i++){
+        liberaRoteador(tab->vet[i]);
     }
+    free(tab->vet);
+    free(tab);
 }

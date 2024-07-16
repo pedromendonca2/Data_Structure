@@ -9,6 +9,7 @@ int main(){
 
     acessaTab(tabela, roteador_1);
     acessaTab(tabela, roteador_2);
+    acessaTab(tabela, roteador_1);
 
     imprimeTab(tabela);
     liberaTab(tabela);
