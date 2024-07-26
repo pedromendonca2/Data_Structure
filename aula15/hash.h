@@ -11,7 +11,7 @@ typedef struct hash Hash;
 
 static int hash(char* s, int tam);
 
-Hash* inicializa(int tam);
+Hash* inicializa(int tam); 
 
 tPalavra* acessaHash(Hash* h, char* s);
 

@@ -65,7 +65,9 @@ tArvore *abb_retira(tArvore *r, tAluno* aluno)
         /* nó sem filhos */
         if (r->esq == NULL && r->dir == NULL)
         {
-            free(r);
+            tArvore* t = r;
+            liberaAluno(t->a);
+            free(t);
             r = NULL;
         }
         /* nó só tem filho à direita */
@@ -73,6 +75,7 @@ tArvore *abb_retira(tArvore *r, tAluno* aluno)
         {
             tArvore *t = r;
             r = r->dir;
+            liberaAluno(t->a);
             free(t);
         }
         /* só tem filho à esquerda */
@@ -80,6 +83,7 @@ tArvore *abb_retira(tArvore *r, tAluno* aluno)
         {
             tArvore *t = r;
             r = r->esq;
+            liberaAluno(t->a);
             free(t);
         }
         /* nó tem os dois filhos */
@@ -103,7 +107,6 @@ void liberaArvore(tArvore* r)
     if(r!=NULL){
         liberaArvore(r->esq);
         liberaArvore(r->dir);
-
         liberaAluno(r->a);
         free(r);
     }

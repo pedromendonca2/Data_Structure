@@ -43,7 +43,7 @@ tPalavra* acessaHash(Hash* h, char* s){
 int contaPalavras(Hash* h){
     int soma=0;
 
-    for(int i=0; i<h->tam; i++){
+    for(int i=0; i< h->tam; i++){
         soma = soma + contaPalavrasLista(h->vet[i]);
     }
 

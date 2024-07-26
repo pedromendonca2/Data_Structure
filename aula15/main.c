@@ -10,8 +10,7 @@ int main(){
     }
 
     char n[NPAL];
-    Hash* tab;
-    tab = inicializa(NTAB);
+    Hash* tab = inicializa(NTAB);
 
     while(fscanf(file_pointer, "%s", n) == 1){
         tPalavra* p = acessaHash(tab, n);
