@@ -15,7 +15,7 @@ int retornaFaltas(tAluno* aluno);
 
 char* retornaNome(tAluno* aluno);
 
-void imprimeAluno(tAluno* aluno);
+void imprimeAluno(tAluno* aluno, FILE* file);
 
 void incrementaAluno(tAluno* a, char p);
 

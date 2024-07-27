@@ -13,7 +13,7 @@ tArvore* insereAluno(tArvore* r, tAluno* aluno);
 
 tArvore* retiraAluno(tArvore* r, tAluno* aluno);
 
-void imprimeArvore(tArvore* r);
+void imprimeArvore(tArvore* r, FILE* file);
 
 void liberaArvore(tArvore* r);
 

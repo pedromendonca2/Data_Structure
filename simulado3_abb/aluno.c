@@ -28,8 +28,8 @@ char* retornaNome(tAluno* aluno){
     return aluno->nome;
 }
 
-void imprimeAluno(tAluno* aluno){
-    printf("%s %dP %dF\n", aluno->nome, aluno->presencas, aluno->faltas);
+void imprimeAluno(tAluno* aluno, FILE* file){
+    fprintf(file, "%s %dP %dF\n", aluno->nome, aluno->presencas, aluno->faltas);
 }
 
 void incrementaAluno(tAluno* a, char p){

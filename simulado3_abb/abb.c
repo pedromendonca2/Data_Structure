@@ -77,11 +77,11 @@ tArvore* retiraAluno(tArvore* r, tAluno* aluno){
     return r;
 }
 
-void imprimeArvore(tArvore* r){
+void imprimeArvore(tArvore* r, FILE* file){
     if(r != NULL){
-        imprimeArvore(r->dir);
-        imprimeArvore(r->esq);
-        imprimeAluno(r->aluno);
+        imprimeArvore(r->dir, file);
+        imprimeArvore(r->esq, file);
+        imprimeAluno(r->aluno, file);
     }
 }
 
