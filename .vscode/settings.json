@@ -7,6 +7,8 @@
         "arvorebinariabusca.h": "c",
         "string.h": "c",
         "arvalunogen.h": "c",
-        "palavra.h": "c"
+        "palavra.h": "c",
+        "stdio.h": "c",
+        "stdlib.h": "c"
     }
 }

@@ -30,7 +30,7 @@ char* retornaNome(tAluno* aluno){
     return aluno->nome;
 }
 
-void imprimeAluno(tAluno* aluno, FILE* file){
+void imprimeAlunos(tAluno* aluno, FILE* file){
     tAluno* aux;
 
     for(aux = aluno; aux != NULL; aux = aux->prox){
@@ -61,8 +61,8 @@ tAluno* insereAlunoLista(tAluno* lista, tAluno* aluno){
 
 void liberaAluno(tAluno* aluno){
     if (aluno != NULL) {
-        free(aluno->nome);
         liberaAluno(aluno->prox);  // Libera recursivamente
+        free(aluno->nome);
         free(aluno);
     }
 }

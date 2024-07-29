@@ -40,7 +40,6 @@ tArvore* retiraArvore(tArvore* arv, char* s){
         arv->dir = retiraArvore(arv->dir, s);
     } else{
         if(arv->esq == NULL && arv->dir == NULL){
-            tArvore* t = arv;
             free(arv->palavra);
             free(arv);
             arv = NULL;

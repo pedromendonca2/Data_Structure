@@ -21,7 +21,7 @@ tAluno* insereAlunoLista(tAluno* lista, tAluno* aluno);
 
 void imprimeAqui(tAluno* aluno);
 
-void imprimeAluno(tAluno* aluno, FILE* file);
+void imprimeAlunos(tAluno* aluno, FILE* file);
 
 void incrementaAluno(tAluno* a, char p);
 

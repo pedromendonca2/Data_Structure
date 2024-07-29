@@ -1,7 +1,7 @@
 #include "hash.h"
 
 struct hash{
-    tAluno* aluno;
+    tAluno** aluno;
     int tamanho;
 };
 
@@ -17,7 +17,11 @@ tHash* inicializaHash(int tam){
     tHash* hash = malloc(sizeof(tHash));
 
     hash->tamanho = tam;
-    hash->aluno = NULL;
+    hash->aluno = malloc(tam*sizeof(tAluno*));
+
+    for(int i=0; i<tam; i++){
+        hash->aluno[i] = NULL;
+    }
 
     return hash;
 }
@@ -25,7 +29,7 @@ tHash* inicializaHash(int tam){
 tAluno* acessaHash(tHash* hash, char* s, char p){
     int indice = functionHash(s, hash->tamanho);
 
-    tAluno* a = buscaAlunoLista(hash->aluno, s);
+    tAluno* a = buscaAlunoLista(hash->aluno[indice], s);
 
     // Procura na lista encadeada
     if(a){
@@ -35,20 +39,25 @@ tAluno* acessaHash(tHash* hash, char* s, char p){
 
     // Cria um novo aluno e insere na lista encadeada
     a = criaAluno(s);
-    hash->aluno = insereAlunoLista(hash->aluno, a);
+    hash->aluno[indice] = insereAlunoLista(hash->aluno[indice], a);
 
     return a;
 }
 
 void imprimeHash(tHash* hash, FILE* file){
     if(hash != NULL){
-        imprimeAluno(hash->aluno, file);
+        for(int i=0; i<hash->tamanho; i++){
+            imprimeAlunos(hash->aluno[i], file);
+        }
     }
 }
 
 void liberaHash(tHash* hash){
     if(hash != NULL){
-        liberaAluno(hash->aluno);
+        for(int i=0; i<hash->tamanho; i++){
+            liberaAluno(hash->aluno[i]);
+        }
+        free(hash->aluno);
         free(hash);
     }
 }

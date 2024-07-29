@@ -44,7 +44,7 @@ int contaPalavras(Hash* h){
     int soma=0;
 
     for(int i=0; i< h->tam; i++){
-        soma = soma + contaPalavrasLista(h->vet[i]);
+        soma += contaPalavrasLista(h->vet[i]);
     }
 
     return soma;
